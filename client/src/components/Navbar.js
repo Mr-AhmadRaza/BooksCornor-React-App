@@ -66,6 +66,14 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const navItems = [
+    { label: 'Home', path: '/' },
+    { label: 'Browse Books', path: '/books' },
+    { label: 'About', path: '/about' },
+    { label: '🛒 Cart', path: '/cart', badge: cartCount },
+    { label: '🧾 Checkout', path: '/checkout' },
+  ];
+
   return (
     <nav
       className="navbar navbar-expand-lg sticky-top shadow-sm"
@@ -88,22 +96,29 @@ const Navbar = () => {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mx-auto gap-1">
-            {[
-              { label: 'Home', path: '/' },
-              { label: 'Browse Books', path: '/books' },
-              { label: 'About', path: '/about' },
-              { label: '🛒 Cart', path: '/cart' },
-              { label: '🧾 Checkout', path: '/checkout' },
-            ].map((item, i) => (
+            {navItems.map((item, i) => (
               <li className="nav-item" key={i}>
                 <Link
                   className="nav-link px-3 py-2 rounded"
                   to={item.path}
-                  style={{ color: '#374151', fontWeight: '500', transition: 'all 0.2s' }}
+                  style={{ color: '#374151', fontWeight: '500', transition: 'all 0.2s', position: 'relative' }}
                   onMouseEnter={e => { e.target.style.color = '#f97316'; e.target.style.background = '#fff7ed'; }}
                   onMouseLeave={e => { e.target.style.color = '#374151'; e.target.style.background = 'transparent'; }}
                 >
                   {item.label}
+                  {item.badge > 0 && (
+                    <span style={{
+                      background: '#f97316',
+                      color: '#fff',
+                      borderRadius: '50%',
+                      fontSize: '0.7rem',
+                      fontWeight: '700',
+                      padding: '1px 6px',
+                      marginLeft: '6px'
+                    }}>
+                      {item.badge}
+                    </span>
+                  )}
                 </Link>
               </li>
             ))}

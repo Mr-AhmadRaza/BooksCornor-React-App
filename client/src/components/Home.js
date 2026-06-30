@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const stats = [
-  { number: '500+', label: 'Books Available', icon: '📚' },
-  { number: '1,200+', label: 'Happy Readers', icon: '😊' },
-  { number: '50+', label: 'Categories', icon: '🗂️' },
-  { number: '4.8★', label: 'Average Rating', icon: '⭐' },
-];
+
 
 const iqbalBooks = [
   {

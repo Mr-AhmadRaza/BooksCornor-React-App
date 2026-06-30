@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-
+import { API_URL } from '../config';
 
 const iqbalBooks = [
   {
@@ -127,7 +126,7 @@ function Home() {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/books')
+      const response = await fetch(`${API_URL}/api/books`)
       const data = await response.json()
       setBooks(Array.isArray(data) ? data.slice(0, 6) : [])
     } catch (err) {
@@ -178,6 +177,12 @@ function Home() {
                 style={{ background: '#ffffff', color: '#f97316', border: '2px solid #f97316', borderRadius: '50px', fontWeight: '600' }}>
                 Join Free
               </Link>
+            )}
+            {cart.length > 0 && (
+              <button onClick={() => navigate('/cart')} className="btn btn-lg px-5 py-3"
+                style={{ background: '#111827', color: '#ffffff', fontWeight: '700', borderRadius: '50px', border: 'none' }}>
+                🛒 View Cart ({cart.length})
+              </button>
             )}
           </div>
         </div>

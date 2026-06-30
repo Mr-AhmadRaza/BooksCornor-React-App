@@ -12,39 +12,38 @@ const Auth = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
   const url = isLogin
-  ? 'http://localhost:5000/api/auth/login'
-  : 'http://localhost:5000/api/auth/signup'
+    ? `${API_URL}/api/auth/login`
+    : `${API_URL}/api/auth/signup`
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-      })
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user)
+    })
 
-      const data = await response.json()
+    const data = await response.json()
 
-      if (data.error) {
-        alert(data.error)
-        return
-      }
-
-      // Save token and user
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('currentUser', JSON.stringify(data.user))
-
-      alert(isLogin ? 'Login successful' : 'Signup successful')
-      navigate('/home')
-
-    } catch (err) {
-      alert('Something went wrong. Make sure backend is running!')
+    if (data.error) {
+      alert(data.error)
+      return
     }
 
-    setUser({ name: "", email: "", password: "" });
-  };
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('currentUser', JSON.stringify(data.user))
+
+    alert(isLogin ? 'Login successful' : 'Signup successful')
+    navigate('/home')
+
+  } catch (err) {
+    alert('Something went wrong. Make sure backend is running!')
+  }
+
+  setUser({ name: "", email: "", password: "" });
+};
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
